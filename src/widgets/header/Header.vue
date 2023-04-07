@@ -1,9 +1,11 @@
-<script setup>
+<script lang="ts" setup>
 import { Logo } from './Logo';
 import IconSearch from './icons/search.svg';
 import IconProfile from './icons/profile.svg';
 import IconHeart from './icons/heart.svg';
 import { NavLink } from './NavLink';
+
+const lol = 'kek';
 
 const navLinks = [
   { href: '#', label: 'Продукты' },

@@ -15,6 +15,4 @@ const { href } = defineProps({ href: String });
   color: $color-typo-primary
   letter-spacing: 0.06em
   text-transform: uppercase
-
-  text-decoration: none
 </style>

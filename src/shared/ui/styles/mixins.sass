@@ -1,0 +1,9 @@
+@mixin size($width, $height: $width)
+  width: $width
+  height: $height
+
+@mixin padding-inline
+  @media (max-width: 767px)
+    padding-inline: 24px
+  @media (min-width: 768px) // and (max-width: 767px)
+    padding-inline: 64px

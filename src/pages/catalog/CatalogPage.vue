@@ -1,108 +1,88 @@
 <script setup>
-import { reactive, onBeforeUnmount } from 'vue';
-import { nanoid } from 'nanoid';
+import { ref } from 'vue';
 
-import { Stopwatch } from 'widgets/stopwatch';
-import { AddStopwatchButton } from 'features/add-stopwatch';
+import { Header as VHeader } from 'widgets/header';
+import Product from 'widgets/product/Product.vue';
+import Cart from 'widgets/cart/Cart.vue';
+import { HeroSlider } from 'widgets/hero-slider';
+import { SliderCheckbox } from 'shared/ui/components/SliderCheckbox';
+import { BreadcrumbsTail } from 'entities/breadcrumbs';
+import SlideItem from 'widgets/hero-slider/ui/SlideItem.vue';
+import { HeroSlide } from 'entities/hero-slide';
 
-const stopwatches = reactive([]);
+import imgVase from './img/vase-with-flowers.jpg';
+// import { Logo } from 'widgets/header/Logo';
 
-const onAdd = () => {
-  stopwatches.push({
-    id: nanoid(),
-    time: 0,
-    timestamp: Date.now(),
-    pauseTimestamp: Date.now(),
-    isPaused: true,
-  });
-};
+// const Exp = <Logo />;
 
-const onTogglePause = (stopwatchId, value) => {
-  const stopwatch = stopwatches.find(({ id }) => stopwatchId === id);
-  if (!stopwatch) return;
-
-  stopwatch.isPaused = value;
-
-  // сдвиг timestamp после возобновления таймера (в зависимости от длительности паузы)
-  const currTime = Date.now();
-
-  if (value) {
-    stopwatch.pauseTimestamp = currTime;
-  } else {
-    stopwatch.timestamp += currTime - stopwatch.pauseTimestamp;
-  }
-};
-
-const onRemove = (stopwatchId) => {
-  const index = stopwatches.findIndex(({ id }) => stopwatchId === id);
-  if (index !== -1) {
-    stopwatches.splice(index, 1);
-  }
-};
-
-const onStop = (stopwatchId) => {
-  const stopwatch = stopwatches.find(({ id }) => stopwatchId === id);
-  if (!stopwatch) return;
-
-  stopwatch.isPaused = true;
-  stopwatch.time = 0;
-  stopwatch.timestamp = Date.now();
-  stopwatch.pauseTimestamp = Date.now();
-};
-
-// сравниваются таймстампы, чтобы не было потери точности из-за setInterval
-const interval = setInterval(() => {
-  for (const stopwatch of stopwatches) {
-    if (stopwatch.isPaused) continue;
-
-    const { time, timestamp } = stopwatch;
-    const diff = Math.floor((Date.now() - timestamp) / 1000);
-
-    // if (diff > time) {
-    stopwatch.time = diff;
-    // }
-  }
-}, 20);
-
-onBeforeUnmount(() => clearInterval(interval));
+const isOpen = ref(false);
 </script>
 
-<template>
-  <main class="main">
-    <ul class="list">
-      <li v-for="stopwatch in stopwatches" :key="stopwatch.id">
-        <stopwatch
-          :stopwatch="stopwatch"
-          :onTogglePause="onTogglePause"
-          :onStop="onStop"
-          :onRemove="onRemove"
-        />
-      </li>
-      <add-stopwatch-button @click="onAdd" />
-    </ul>
-  </main>
+<template lang="pug">
+v-header
+.hero
+  breadcrumbs-tail
+  hero-slider
+    slide-item(v-for="_ in 6")
+      hero-slide(heading="Краски" text="Идеально подходят для стен и других поверхностей.\nНайди свой идеальный цвет!" :backgroundImg="imgVase")
+button(@click="() => isOpen = true") openmodal
+cart(v-if="isOpen" :onClose="() => isOpen = false")
+main
+  .filters
+    slider-checkbox(label="покупайте деньги")
+    slider-checkbox(label="покупайте деньги")
+    slider-checkbox(label="покупайте деньги")
+    slider-checkbox(label="распродажа")
+  section
+    .product-amount
+      | {{428}} товаров
+    .product-list
+      product(img="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Multicolored_tempera_paints.jpg/1920px-Multicolored_tempera_paints.jpg"
+      name="Какой-то тестовый товар lorem ipsum VUEX-1337" price=8800)
+      product(img="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Multicolored_tempera_paints.jpg/1920px-Multicolored_tempera_paints.jpg"
+      name="Какой-то тестовый товар lorem ipsum VUEX-1337" price=8800)
+      product(img="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Multicolored_tempera_paints.jpg/1920px-Multicolored_tempera_paints.jpg"
+      name="Какой-то тестовый товар lorem ipsum VUEX-1337" price=8800)
+footer
 </template>
 
-<style lang="sass" scoped>
-$card-width: min(225px, 100%)
+<style scoped lang="sass">
+.hero
+  position: relative
+.bread-crumbs
+  position: absolute
+  z-index: 1
+  top: 3vh
+  left: 3.33vw
+main
+  @include padding-inline
 
-@mixin grid-cols($amount, $width: $card-width)
-  grid-template-columns: repeat($amount, $width)
+  display: flex
+  padding-top: 72px
+  padding-bottom: 7.5%
+  // padding-inline: 64px
+    // grid-template-columns: 360px, 1fr
+.product-amount
+  margin-bottom: 44px
+  font-weight: 500
+  font-size: 12px
+  line-height: 15px
+  letter-spacing: 0.06em
 
-.main
-  padding: 72px 10px
+  text-transform: uppercase
+.product-list
+  display: flex
+  flex-wrap: wrap
+  gap: 16px 24px
 
-.list
-  display: grid
-  justify-content: center
-  gap: 45px 50px
+.filters
+  display: flex
+  flex-direction: column
+  align-items: flex-start
+  gap: 10px
+  width: 360px
 
-  @media (min-width: 1024px)
-    @include grid-cols(3)
-
-  @media (min-width: 768px) and (max-width: 1023px)
-    @include grid-cols(2)
-
-  @media (max-width: 767px)
-    @include grid-cols(1)
+footer
+  background-color: black
+  height: 300px
 </style>

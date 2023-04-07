@@ -1,65 +1,78 @@
 <script setup lang="ts">
-const {
-  name,
-  label,
-  hasText = true,
-} = defineProps<{ name: string; label: string; hasText?: boolean }>();
+import { toRefs } from 'vue';
+
+interface Props {
+  name: string;
+  label: string;
+}
+
+const props = defineProps<Props>();
+const { name, label } = toRefs(props);
 </script>
 
 <template lang="pug">
-label
-    input(type="checkbox" :name="name")
-    .visual
-    .text {{label}}
+label.input__container
+  input.input__control(type="checkbox" :name="name")
+  .input__visual
+  span.input__label
+    | {{label}}
 </template>
 
-<style lang="sass" scoped>
-label
+<style scoped lang="sass">
+$width-checkbox: 3.6em
+$height-checkbox: 2.2em
+
+$width-mark: .8em
+
+$transition: .2s all ease-in-out
+
+.input
+  &__container
     display: flex
     align-items: center
-    // gap: 12px
+    gap: 1.2em
 
-.visual
-    position: relative
-    display: block
-    height: 22px
-    width: 36px
-    margin-right: 12px
-
-    background: #F2F2F2
-    border-radius: 40px
+    font-size: 1rem
 
     cursor: pointer
-    transition: .2s all ease-in-out
 
-input:checked ~ .visual
-    background: #7BB899
-
-    &::before
-        left: 21px
-
-
-input
+  &__control
     appearance: none
 
-.visual::before
-    content: ''
-    position: absolute
-    width: 8px
-    height: 8px
-    left: 7px
-    top: 7px
-    border-radius: 50%
+  &__visual
+    @include size($width-checkbox, $height-checkbox)
 
-    background: #1F2020
+    position: relative
+    display: block
 
-.text
-    font-size: 12px
-    line-height: 100%
+    flex-shrink: 0
 
-    letter-spacing: 0.06em
+    border-radius: 4.0em
+    background: $color-bg-checkbox
+    transition: $transition
+
+    &::before
+      @include size($width-mark)
+
+      position: absolute
+      content: ''
+      left: .7em
+      // top: calc(50% - $width-mark / 2)
+      top: .7em
+
+      border-radius: 50%
+      background: $color-typo-primary
+      transition: $transition
+
+  &__control:checked ~ .input__visual
+    background: $color-bg-checkbox-checked
+
+    &::before
+      // left: calc(100% - $width-mark - .7em)
+      left: 2.1em
+
+  &__label
+    font-size: 1.2em
+    letter-spacing: .06em
     text-transform: uppercase
-
-
-    color: #1F2020
 </style>
