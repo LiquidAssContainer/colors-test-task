@@ -1,11 +1,10 @@
 <template lang="pug">
-.slide
+.carousel-slide
   slot
 </template>
 
 <style scoped lang="sass">
-.slide
+.carousel-slide
+  @include size(100%)
   flex-shrink: 0
-  width: 100%
-  height: 100%
 </style>

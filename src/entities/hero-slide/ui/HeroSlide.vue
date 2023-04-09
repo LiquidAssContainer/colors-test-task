@@ -7,6 +7,7 @@ interface Props {
 }
 
 const props = defineProps<Props>();
+
 const style = computed(() => ({
   backgroundImage: `url(${props.backgroundImg})`,
 }));

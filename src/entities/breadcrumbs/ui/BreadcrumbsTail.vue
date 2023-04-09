@@ -1,9 +1,9 @@
 <script setup>
 // ну типа просто хардкод
 const links = [
-  { href: '#', title: 'Главная' },
-  { href: '#', title: 'Продукты' },
-  { href: '#', title: 'Краски' },
+  { href: '#home', title: 'Главная' },
+  { href: '#products', title: 'Продукты' },
+  { href: '#paints', title: 'Краски' },
 ];
 </script>
 
@@ -52,4 +52,11 @@ $right-pos-bullet: calc(($gap-items + $width-bullet) / -2)
     color: $color-typo-secondary
 
     opacity: .3
+    transition: .2s opacity ease-in-out
+
+    @media (max-width: 767px)
+      color: $color-typo-primary
+
+    &:hover
+      opacity: 1
 </style>

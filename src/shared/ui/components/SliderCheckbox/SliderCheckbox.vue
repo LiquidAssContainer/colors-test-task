@@ -4,15 +4,23 @@ import { toRefs } from 'vue';
 interface Props {
   name: string;
   label: string;
+  // value: any;
+  // model: any;
+  // onInput: any;
+  modelValue: any;
+
+  // input: any;
 }
 
 const props = defineProps<Props>();
-const { name, label } = toRefs(props);
+defineEmits(['update:modelValue']);
+// console.log(props.modelValue);
+const { name, label, modelValue } = toRefs(props);
 </script>
 
 <template lang="pug">
 label.input__container
-  input.input__control(type="checkbox" :name="name")
+  input.input__control(type="checkbox" :name="name" :checked="modelValue" @input="$emit('update:modelValue', !modelValue)")
   .input__visual
   span.input__label
     | {{label}}

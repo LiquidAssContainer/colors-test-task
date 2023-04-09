@@ -349,6 +349,11 @@
   resolved "https://registry.npmjs.org/@humanwhocodes/object-schema/-/object-schema-1.2.1.tgz#b520529ec21d8e5945a1851dfd1c32e94e39ff45"
   integrity sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==
 
+"@johnsoncodehk/pug-beautify@^0.2.2":
+  version "0.2.2"
+  resolved "https://registry.npmjs.org/@johnsoncodehk/pug-beautify/-/pug-beautify-0.2.2.tgz#6818e7cab0f2d2354492c13bad73881e9cb3ef54"
+  integrity sha512-qqNS/YD0Nck5wtQLCPHAfGVgWbbGafxSPjNh0ekYPFSNNqnDH2kamnduzYly8IiADmeVx/MfAE1njMEjVeHTMA==
+
 "@jridgewell/gen-mapping@^0.1.0":
   version "0.1.1"
   resolved "https://registry.npmjs.org/@jridgewell/gen-mapping/-/gen-mapping-0.1.1.tgz#e5d2e450306a9491e3bd77e323e38d7aff315996"
@@ -536,6 +541,14 @@
   version "1.2.0"
   resolved "https://registry.npmjs.org/@volar-plugins/prettier/-/prettier-1.2.0.tgz#390dc44c78f3815f42ef81ed1d1fd7270115d0d5"
   integrity sha512-SYKv2+P31/ep4o5cop5rfaaucLkDKyEXyGlzNAwOYjxY00fILaW+c7OUslre0SDa6j0YhXSkyqbDwRB5kIkqNg==
+
+"@volar-plugins/pug-beautify@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.npmjs.org/@volar-plugins/pug-beautify/-/pug-beautify-1.1.0.tgz#7ca59b518737fba622eb489e65ae2543159dd9d4"
+  integrity sha512-BEEd7/am68I9oEOczHOm3saBDN/EUiXT49i3ZUTJWpVLpMS2z5xAvDoPzE8Jg3e/ciFoanc3bUd3Ljz8RLYyKA==
+  dependencies:
+    "@johnsoncodehk/pug-beautify" "^0.2.2"
+    vscode-languageserver-types "^3.17.2"
 
 "@volar-plugins/pug@2.0.0-alpha.13":
   version "2.0.0-alpha.13"

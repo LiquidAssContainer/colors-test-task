@@ -3,8 +3,8 @@ a.navlink(:href="href")
   slot
 </template>
 
-<script setup>
-const { href } = defineProps({ href: String });
+<script setup lang="ts">
+const { href } = defineProps<{ href: string }>();
 </script>
 
 <style lang="sass" scoped>
@@ -15,4 +15,7 @@ const { href } = defineProps({ href: String });
   color: $color-typo-primary
   letter-spacing: 0.06em
   text-transform: uppercase
+
+  &:hover
+    color: $color-typo-link-hover
 </style>

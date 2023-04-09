@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue';
 
 import { Header as VHeader } from 'widgets/header';
@@ -10,7 +10,8 @@ import { BreadcrumbsTail } from 'entities/breadcrumbs';
 import SlideItem from 'widgets/hero-slider/ui/SlideItem.vue';
 import { HeroSlide } from 'entities/hero-slide';
 
-import imgVase from './img/vase-with-flowers.jpg';
+import { heroSlides } from './heroSlides';
+import { FilterProducts } from 'features/filter-products';
 // import { Logo } from 'widgets/header/Logo';
 
 // const Exp = <Logo />;
@@ -20,25 +21,21 @@ const isOpen = ref(false);
 
 <template lang="pug">
 v-header
+//- button(@click="() => isOpen = true") openmodal
 .hero
   breadcrumbs-tail
   hero-slider
-    slide-item(v-for="_ in 6")
-      hero-slide(heading="Краски" text="Идеально подходят для стен и других поверхностей.\nНайди свой идеальный цвет!" :backgroundImg="imgVase")
-button(@click="() => isOpen = true") openmodal
+    slide-item(v-for="slide in heroSlides")
+      hero-slide(v-bind="slide")
 cart(v-if="isOpen" :onClose="() => isOpen = false")
 main
-  .filters
-    slider-checkbox(label="покупайте деньги")
-    slider-checkbox(label="покупайте деньги")
-    slider-checkbox(label="покупайте деньги")
-    slider-checkbox(label="распродажа")
+  filter-products
   section
     .product-amount
       | {{428}} товаров
     .product-list
       product(img="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Multicolored_tempera_paints.jpg/1920px-Multicolored_tempera_paints.jpg"
-      name="Какой-то тестовый товар lorem ipsum VUEX-1337" price=8800)
+      name="Какой-то тестовый товар lorem ipsum VUEX-1337" :price="8800")
       product(img="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Multicolored_tempera_paints.jpg/1920px-Multicolored_tempera_paints.jpg"
       name="Какой-то тестовый товар lorem ipsum VUEX-1337" price=8800)
       product(img="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Multicolored_tempera_paints.jpg/1920px-Multicolored_tempera_paints.jpg"
@@ -47,13 +44,33 @@ footer
 </template>
 
 <style scoped lang="sass">
+$mobile: (max-width: 767px)
 .hero
   position: relative
+
+  @media (max-width: 767px)
+    padding-top: 16px
+
+    &::before
+      position: absolute
+      content: ''
+      top: 0
+      width: 100%
+      height: 1px
+      // border-top: 1px solid #1F2020
+
+      background: #1F2020
+      opacity: 0.06
 .bread-crumbs
   position: absolute
   z-index: 1
   top: 3vh
   left: 3.33vw
+
+.hero-slider__container
+  @media (max-width: 767px)
+    display: none
+
 main
   @include padding-inline
 
@@ -74,13 +91,6 @@ main
   display: flex
   flex-wrap: wrap
   gap: 16px 24px
-
-.filters
-  display: flex
-  flex-direction: column
-  align-items: flex-start
-  gap: 10px
-  width: 360px
 
 footer
   background-color: black

@@ -5,24 +5,27 @@
 </template>
 
 <style lang="sass" scoped>
+$size-dot-elem: .8rem
 .logo
   position: relative
-
-  font-family: 'TT Hoves'
-  font-size: 30px
-  line-height: 26px
+  font-family: "TT Hoves"
+  // font-weight: 400
+  font-size: 2.2rem
+  line-height: 1
   text-transform: uppercase
   color: #1F2020
+  padding-right: 1.2rem
+
+  user-select: none
 
   &::after
-    $size: 8px
+    @include size($size-dot-elem)
+
     position: absolute
     content: ''
-    top: 0
-    right: -2px
+    top: 2px
+    right: 0
 
-    width: $size
-    height: $size
     border-radius: 50%
-    background-color: #1F2020
+    background-color: $color-typo-primary
 </style>

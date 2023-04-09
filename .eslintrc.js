@@ -18,7 +18,7 @@ module.exports = {
       jsx: true,
     },
   },
-  // plugins: ['vue'],
+  plugins: ['vue'],
   rules: {
     'no-unused-vars': 'off',
   },

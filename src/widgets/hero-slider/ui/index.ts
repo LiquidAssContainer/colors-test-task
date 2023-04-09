@@ -1,1 +1,2 @@
-export { default as HeroSlider } from './HeroSlider.vue';
+export { default as VCarousel } from './VCarousel.vue';
+export { default as CarouselSlide } from './CarouselSlide.vue';
