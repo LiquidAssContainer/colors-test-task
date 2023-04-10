@@ -1,13 +1,17 @@
+<script setup lang="ts">
+interface Props {
+  href: string;
+}
+
+defineProps<Props>();
+</script>
+
 <template lang="pug">
 a.navlink(:href="href")
   slot
 </template>
 
-<script setup lang="ts">
-const { href } = defineProps<{ href: string }>();
-</script>
-
-<style lang="sass" scoped>
+<style scoped lang="sass">
 .navlink
   font-size: 14px
   // line-height: 100%

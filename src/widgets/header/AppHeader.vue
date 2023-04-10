@@ -1,11 +1,14 @@
-<script lang="ts" setup>
-import { Logo } from './Logo';
+<script setup lang="ts">
+import { ref, watch } from 'vue';
+
+import { AppLogo } from './AppLogo';
+import { NavLink } from './NavLink';
+
 import IconSearch from './icons/search.svg';
 import IconProfile from './icons/profile.svg';
 import IconHeart from './icons/heart.svg';
-import { NavLink } from './NavLink';
-
-const lol = 'kek';
+import IconMenu from './icons/burger-menu.svg';
+import IconClose from 'shared/ui/icons/close.svg';
 
 const navLinks = [
   { href: '#procuts', label: 'Продукты' },
@@ -14,13 +17,20 @@ const navLinks = [
   { href: '#', label: 'Советы' },
   { href: '#', label: 'Найти магазин' },
 ];
+
+const isMenuOpen = ref(false);
+watch(isMenuOpen, () => console.log(isMenuOpen.value));
 </script>
 
 <template lang="pug">
-.header
-  logo
+.app-header
+  button.menu-btn(@click="isMenuOpen = !isMenuOpen")
+    icon-close(v-if="isMenuOpen")
+    icon-menu(v-else)
+  app-logo
   nav.nav
-    nav-link(v-for="link in navLinks" :href="link.href" :key="link.href") {{ link.label }}
+    nav-link(v-for="link in navLinks" :href="link.href" :key="link.href")
+      | {{ link.label }}
   .contact
     address
       a.contact__tel(href="tel:+74952217769")
@@ -35,13 +45,24 @@ const navLinks = [
 </template>
 
 <style scoped lang="sass">
-.header
+.menu-btn
+  flex-shrink: 0
+  width: 2.4rem
+
+  @include from(laptop)
+    // appearance: none
+    display: none //TODO
+
+.app-header
+  @include padding-inline
+
   display: flex
+  flex-wrap: wrap
   align-items: center
   justify-content: space-between //*
 
   height: 10.4rem
-  padding-inline: 64px
+  // padding-inline: 64px
 
 .nav
   display: flex
@@ -77,7 +98,8 @@ address
   gap: 2.8rem
 
 .controls svg
-  max-width: 20px
+  color: $color-icon-primary
+  max-width: 2rem
 
 .controls__btn_cart
   @include size(2.4rem)

@@ -1,21 +1,22 @@
-<script setup></script>
-
 <template lang="pug">
-.logo Colors
+.app-logo
+  | Colors
 </template>
 
-<style lang="sass" scoped>
+<style scoped lang="sass">
 $size-dot-elem: .8rem
-.logo
+
+.app-logo
   position: relative
-  font-family: "TT Hoves"
-  // font-weight: 400
-  font-size: 2.2rem
-  line-height: 1
-  text-transform: uppercase
-  color: #1F2020
   padding-right: 1.2rem
 
+  font-family: "TT Hoves"
+  font-size: 2.2rem
+  font-weight: 700 //400
+  line-height: 1
+  text-transform: uppercase
+
+  color: $color-typo-primary
   user-select: none
 
   &::after
@@ -23,7 +24,7 @@ $size-dot-elem: .8rem
 
     position: absolute
     content: ''
-    top: 2px
+    top: .2rem
     right: 0
 
     border-radius: 50%
