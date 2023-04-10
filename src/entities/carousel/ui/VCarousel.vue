@@ -30,8 +30,7 @@ const [switchSlide, clearSwitchSlide] = debounce(() => {
   } else {
     activeIndex.value = 0;
   }
-  //TODO
-}, 500000);
+}, 5000);
 
 watch(activeIndex, switchSlide, { immediate: true });
 

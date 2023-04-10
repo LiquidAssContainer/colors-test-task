@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
-import { Header as VHeader } from 'widgets/header';
+import { AppHeader } from 'widgets/header';
 import { FilterProducts } from 'features/filter-products';
 import Product from 'widgets/product/Product.vue';
 import Cart from 'widgets/cart/Cart.vue';
@@ -16,8 +16,8 @@ const isOpen = ref(false);
 </script>
 
 <template lang="pug">
-v-header
-button(@click="() => isOpen = true") openmodal
+app-header
+//- button(@click="() => isOpen = true") openmodal
 .hero
   breadcrumbs-tail
   v-carousel
@@ -58,10 +58,13 @@ footer
       opacity: 0.06
 .bread-crumbs
   @include from(laptop)
+    @include padding-inline
+
     position: absolute
     z-index: 1
-    top: 3vh
-    left: 3.33vw
+    padding-top: 1.7vw
+    // top: 3vh
+    // left: 3.33vw
 
 .carousel
   @include to(tablet)
