@@ -17,7 +17,7 @@ const isOpen = ref(false);
 
 <template lang="pug">
 v-header
-//- button(@click="() => isOpen = true") openmodal
+button(@click="() => isOpen = true") openmodal
 .hero
   breadcrumbs-tail
   v-carousel
@@ -40,38 +40,38 @@ footer
 </template>
 
 <style scoped lang="sass">
-$mobile: (max-width: 767px)
 .hero
   position: relative
 
-  @media (max-width: 767px)
-    padding-top: 16px
+  @include to(tablet)
+    @include padding-inline
+    padding-top: 1.6rem
 
     &::before
       position: absolute
       content: ''
       top: 0
       width: 100%
-      height: 1px
-      // border-top: 1px solid #1F2020
+      height: .1rem
 
-      background: #1F2020
+      background: $color-border-primary
       opacity: 0.06
 .bread-crumbs
-  position: absolute
-  z-index: 1
-  top: 3vh
-  left: 3.33vw
+  @include from(laptop)
+    position: absolute
+    z-index: 1
+    top: 3vh
+    left: 3.33vw
 
-.hero-slider__container
-  @media (max-width: 767px)
+.carousel
+  @include to(tablet)
     display: none
 
 main
   @include padding-inline
 
   display: flex
-  padding-top: 72px
+  padding-top: 7.2rem
   padding-bottom: 7.5%
   // padding-inline: 64px
     // grid-template-columns: 360px, 1fr

@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { VueElement, computed } from 'vue';
+import { computed } from 'vue';
+
 interface Props {
   heading?: string;
-  text?: string;
+  text: string;
   backgroundImg?: typeof URL;
 }
 
@@ -15,14 +16,10 @@ const style = computed(() => ({
 
 <template lang="pug">
 .hero-slide(:style="style")
-  h2.hero-slide__heading(v-if="props.heading")
-    | {{ props.heading }}
-  .hero-slide__description(v-if="props.text")
-    | {{ props.text }}
-//- h2.hero-slide__heading
-//-   slot(name="heading")
-//- .text
-//-   slot(name="text")
+  h2.hero-slide__heading(v-if="heading")
+    | {{ heading }}
+  .hero-slide__description
+    | {{ text }}
 </template>
 
 <style scoped lang="sass">
@@ -30,30 +27,29 @@ const style = computed(() => ({
   display: flex
   flex-direction: column
   justify-content: center
-  align-items: center
-  gap: 24px
+  gap: 1.25vw //2.4rem
 
   height: 100%
+  padding-inline: 25%
 
   background-color: $color-bg-green
   background-size: cover
   background-position: bottom
 
+  text-align: center
   color: $color-typo-secondary
 
   &__heading
-    font-size: 72px
+    font-size: calc(4.8rem + .9vw) //7.2rem
     font-weight: 400
-    line-height: 88%
+    line-height: 0.88
 
     letter-spacing: -0.02em
 
   &__description
     font-weight: 500
-    font-size: 16px
-    line-height: 130%
-
-    text-align: center
+    font-size: calc(1.2rem + .2vw) //1.6rem
+    line-height: 1.3
     letter-spacing: 0.02em
 
     white-space: pre-wrap

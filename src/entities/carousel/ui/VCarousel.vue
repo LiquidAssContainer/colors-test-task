@@ -30,7 +30,8 @@ const [switchSlide, clearSwitchSlide] = debounce(() => {
   } else {
     activeIndex.value = 0;
   }
-}, 5000);
+  //TODO
+}, 500000);
 
 watch(activeIndex, switchSlide, { immediate: true });
 
@@ -82,6 +83,6 @@ onBeforeUnmount(() => {
 
 .carousel-pagination
   position: absolute
-  bottom: 3.9rem
+  bottom: 2vw //3.9rem
   margin-inline: auto
 </style>

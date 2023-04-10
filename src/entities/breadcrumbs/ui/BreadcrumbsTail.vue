@@ -54,7 +54,7 @@ $right-pos-bullet: calc(($gap-items + $width-bullet) / -2)
     opacity: .3
     transition: .2s opacity ease-in-out
 
-    @media (max-width: 767px)
+    @include to(tablet)
       color: $color-typo-primary
 
     &:hover
