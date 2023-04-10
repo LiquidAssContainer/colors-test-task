@@ -47,7 +47,7 @@ onBeforeUnmount(() => {
     :active-index="activeIndex"
     :amount="slotsCount"
     @set-index="activeIndex = $event")
-  .carousel__contsols
+  .carousel__controls
     carousel-button(v-if="hasPrev" type="prev" @click="activeIndex--")
     carousel-button(v-if="hasNext" type="next" @click="activeIndex++")
 </template>

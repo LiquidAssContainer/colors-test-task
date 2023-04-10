@@ -2,19 +2,15 @@
 import { ref } from 'vue';
 
 import { Header as VHeader } from 'widgets/header';
+import { FilterProducts } from 'features/filter-products';
 import Product from 'widgets/product/Product.vue';
 import Cart from 'widgets/cart/Cart.vue';
-import { HeroSlider } from 'widgets/hero-slider';
-import { SliderCheckbox } from 'shared/ui/components/SliderCheckbox';
+
 import { BreadcrumbsTail } from 'entities/breadcrumbs';
-import SlideItem from 'widgets/hero-slider/ui/SlideItem.vue';
+import { CarouselSlide, VCarousel } from 'entities/carousel/ui';
 import { HeroSlide } from 'entities/hero-slide';
 
 import { heroSlides } from './heroSlides';
-import { FilterProducts } from 'features/filter-products';
-// import { Logo } from 'widgets/header/Logo';
-
-// const Exp = <Logo />;
 
 const isOpen = ref(false);
 </script>
@@ -24,8 +20,8 @@ v-header
 //- button(@click="() => isOpen = true") openmodal
 .hero
   breadcrumbs-tail
-  hero-slider
-    slide-item(v-for="slide in heroSlides")
+  v-carousel
+    carousel-slide(v-for="slide in heroSlides")
       hero-slide(v-bind="slide")
 cart(v-if="isOpen" :onClose="() => isOpen = false")
 main
