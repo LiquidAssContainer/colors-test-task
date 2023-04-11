@@ -1,7 +1,7 @@
 export const debounce = (fn: (...args: unknown[]) => void, timeout: number) => {
   let lastCall: number;
   let prevCall: number;
-  let lastCallTimer: number | undefined;
+  let lastCallTimer: ReturnType<typeof setTimeout>;
 
   const resultFn = function (...args: unknown[]) {
     prevCall = lastCall;

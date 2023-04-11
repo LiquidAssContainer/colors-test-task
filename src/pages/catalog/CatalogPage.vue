@@ -5,14 +5,23 @@ import { AppHeader } from 'widgets/header';
 import { FilterProducts } from 'features/filter-products';
 import Product from 'widgets/product/Product.vue';
 import Cart from 'widgets/cart/Cart.vue';
-
 import { BreadcrumbsTail } from 'entities/breadcrumbs';
 import { CarouselSlide, VCarousel } from 'entities/carousel/ui';
 import { HeroSlide } from 'entities/hero-slide';
+import { CustomSelect } from 'shared/ui/components/CustomSelect';
 
 import { heroSlides } from './heroSlides';
 
 const isOpen = ref(false);
+
+const sortOptions = [
+  { value: 'expensive', label: 'Сначала дорогие' },
+  { value: 'cheap', label: 'Сначала дешёвые' },
+  { value: 'popular', label: 'Сначала популярные' },
+  { value: 'new', label: 'Сначала новые' },
+];
+
+const selectedSort = ref(sortOptions[0].value);
 </script>
 
 <template lang="pug">
@@ -27,15 +36,18 @@ cart(v-if="isOpen" :onClose="() => isOpen = false")
 main
   filter-products
   section
-    .product-amount
-      | {{428}} товаров
+    .catalog__header
+      .product-amount
+        | {{428}} товаров
+      .product-order
+        custom-select(:options="sortOptions" v-model="selectedSort")
     .product-list
       product(img="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Multicolored_tempera_paints.jpg/1920px-Multicolored_tempera_paints.jpg"
       name="Какой-то тестовый товар lorem ipsum VUEX-1337" :price="8800")
       product(img="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Multicolored_tempera_paints.jpg/1920px-Multicolored_tempera_paints.jpg"
-      name="Какой-то тестовый товар lorem ipsum VUEX-1337" price=8800)
+      name="Какой-то тестовый товар lorem ipsum VUEX-1337" :price="8800")
       product(img="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Multicolored_tempera_paints.jpg/1920px-Multicolored_tempera_paints.jpg"
-      name="Какой-то тестовый товар lorem ipsum VUEX-1337" price=8800)
+      name="Какой-то тестовый товар lorem ipsum VUEX-1337" :price="8800")
 footer
 </template>
 
@@ -77,9 +89,14 @@ main
   padding-top: 7.2rem
   padding-bottom: 7.5%
   // padding-inline: 64px
-    // grid-template-columns: 360px, 1fr
-.product-amount
+  // grid-template-columns: 360px, 1fr
+
+.catalog__header
+  display: flex
+  justify-content: space-between
+
   margin-bottom: 44px
+.product-amount
   font-weight: 500
   font-size: 12px
   line-height: 15px
