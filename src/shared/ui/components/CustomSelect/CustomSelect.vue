@@ -1,6 +1,9 @@
 <script setup lang="ts">
-import { computed, reactive, ref, toRef, watch, watchEffect } from 'vue';
+import { Teleport, computed, ref, watch } from 'vue';
+import { VOverlay } from 'shared/ui/components/VOverlay';
 import IconTriangle from './triangle.svg';
+
+import { useOnClickOutside } from 'shared/lib/useOnClickOutside';
 
 interface Option {
   value: string;
@@ -10,16 +13,20 @@ interface Option {
 interface Props {
   options: Option[];
   modelValue: string;
+  isNative?: boolean;
 }
 
 interface Emits {
   (e: 'update:modelValue', value: string): void;
 }
 
-const props = defineProps<Props>();
+const props = withDefaults(defineProps<Props>(), {
+  isNative: false,
+});
 const emit = defineEmits<Emits>();
 
 const isExpanded = ref(false);
+const optionsElem = ref(null);
 
 const selectedLabel = computed(() => {
   const selected = props.options.find(
@@ -29,12 +36,11 @@ const selectedLabel = computed(() => {
 });
 
 const selectedRef = ref({ value: props.modelValue });
-
 const selected = computed({
   get() {
     return selectedRef.value.value;
   },
-  set(value) {
+  set(value: string) {
     selectedRef.value = { value };
   },
 });
@@ -43,23 +49,40 @@ watch(selectedRef, () => {
   emit('update:modelValue', selected.value);
   isExpanded.value = false;
 });
+
+useOnClickOutside(optionsElem, () => {
+  if (isExpanded.value) {
+    isExpanded.value = false;
+  }
+});
 </script>
 
 <template lang="pug">
-.custom-select
+.custom-select(v-if="!isNative")
   button.custom-select__btn(@click="isExpanded = !isExpanded")
     span.custom-select__label
       | {{ selectedLabel }}
     icon-triangle
-  ul.custom-select__options(v-if="isExpanded")
+  ul.custom-select__options(v-if="isExpanded" ref="optionsElem")
     li.custom-select__option(
       v-for="{ value, label } in options"
-      :class="{selected: value === modelValue}"
+      :class="{ selected: value === modelValue }"
       @click="selected = value")
       | {{ label }}
+teleport(to="body")
+  v-overlay(v-if="isExpanded")
+//- label.custom-select__btn(v-else)
+//-   span.custom-select__label
+//-     | {{ selectedLabel }}
+//-   icon-triangle
+//-   select.hidden
+//-     option.custom-select__btn(v-for="{ value, label } in options" :value="value")
+//-       | {{ label }}
 </template>
 
 <style scoped lang="sass">
+// .hidden
+//   appearance: none
 .custom-select
   position: relative
 
