@@ -1,18 +1,21 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { Teleport, Transition, ref } from 'vue';
 
 import { AppHeader } from 'widgets/header';
 import { FilterProducts } from 'features/filter-products';
 import Product from 'widgets/product/Product.vue';
-import Cart from 'widgets/cart/Cart.vue';
+import { CartSidebar } from 'widgets/cart';
+
 import { BreadcrumbsTail } from 'entities/breadcrumbs';
 import { CarouselSlide, VCarousel } from 'entities/carousel/ui';
 import { HeroSlide } from 'entities/hero-slide';
+
+import { VOverlay } from 'shared/ui/components/VOverlay';
 import { CustomSelect } from 'shared/ui/components/CustomSelect';
 
 import { heroSlides } from './heroSlides';
 
-const isOpen = ref(false);
+const isCartOpen = ref(false);
 
 const sortOptions = [
   { value: 'expensive', label: 'Сначала дорогие' },
@@ -25,14 +28,17 @@ const selectedSort = ref(sortOptions[0].value);
 </script>
 
 <template lang="pug">
-app-header
-//- button(@click="() => isOpen = true") openmodal
+app-header(@open-cart="isCartOpen = true")
 .hero
   breadcrumbs-tail
   v-carousel
     carousel-slide(v-for="slide in heroSlides")
       hero-slide(v-bind="slide")
-cart(v-if="isOpen" :onClose="() => isOpen = false")
+teleport(to="body")
+  transition(name="overlay-fade")
+    v-overlay(v-if="isCartOpen")
+  transition(name="cart-translate")
+    cart-sidebar(v-if="isCartOpen" @close="isCartOpen = false")
 main
   filter-products
   section
@@ -111,4 +117,23 @@ main
 footer
   background-color: black
   height: 300px
+
+.cart-translate-enter-active
+  animation: translate .5s
+  // transform: scale(2)
+
+.cart-translate-leave-active
+  animation: translate .4s reverse
+
+.overlay-fade-enter-active, .overlay-fade-leave-active
+  transition: opacity .4s ease-in-out
+
+.overlay-fade-enter-from, .overlay-fade-leave-to
+  opacity: 0
+
+@keyframes translate
+  from
+    transform: translateX(100%)
+  to
+    transform: translateX(0)
 </style>

@@ -10,6 +10,8 @@ import IconHeart from './icons/heart.svg';
 import IconMenu from './icons/burger-menu.svg';
 import IconClose from 'shared/ui/icons/close.svg';
 
+defineEmits(['openCart']);
+
 const navLinks = [
   { href: '#procuts', label: 'Продукты' },
   { href: '#', label: 'Цвета' },
@@ -41,7 +43,7 @@ watch(isMenuOpen, () => console.log(isMenuOpen.value));
     icon-heart
     icon-profile
     icon-search
-    button.controls__btn_cart 4
+    button.controls__btn_cart(@click="$emit('openCart')") 4
 </template>
 
 <style scoped lang="sass">
