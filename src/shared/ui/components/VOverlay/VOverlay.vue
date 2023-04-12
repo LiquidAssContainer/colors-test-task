@@ -12,4 +12,5 @@ $color-background: #000
   z-index: 1
 
   background-color: rgba($color-background, 0.7)
+  cursor: pointer
 </style>

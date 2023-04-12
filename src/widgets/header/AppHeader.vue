@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { computed, ref, watch } from 'vue';
 
 import { AppLogo } from './AppLogo';
 import { NavLink } from './NavLink';
@@ -9,6 +9,9 @@ import IconProfile from './icons/profile.svg';
 import IconHeart from './icons/heart.svg';
 import IconMenu from './icons/burger-menu.svg';
 import IconClose from 'shared/ui/icons/close.svg';
+import { useStore } from 'vuex';
+
+const store = useStore();
 
 defineEmits(['openCart']);
 
@@ -19,6 +22,8 @@ const navLinks = [
   { href: '#', label: 'Советы' },
   { href: '#', label: 'Найти магазин' },
 ];
+
+const quantity = computed(() => store.getters['cart/totalQuantity']);
 
 const isMenuOpen = ref(false);
 watch(isMenuOpen, () => console.log(isMenuOpen.value));
@@ -43,7 +48,7 @@ watch(isMenuOpen, () => console.log(isMenuOpen.value));
     icon-heart
     icon-profile
     icon-search
-    button.controls__btn_cart(@click="$emit('openCart')") 4
+    button.controls__btn_cart(@click="$emit('openCart')") {{ quantity }}
 </template>
 
 <style scoped lang="sass">

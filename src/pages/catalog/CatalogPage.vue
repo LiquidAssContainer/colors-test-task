@@ -14,8 +14,9 @@ import { VOverlay } from 'shared/ui/components/VOverlay';
 import { CustomSelect } from 'shared/ui/components/CustomSelect';
 
 import { heroSlides } from './heroSlides';
+import { useDisableBodyScroll } from 'shared/lib/useDisableBodyScroll';
 
-const isCartOpen = ref(false);
+const isCartOpen = ref(true);
 
 const sortOptions = [
   { value: 'expensive', label: 'Сначала дорогие' },
@@ -25,9 +26,11 @@ const sortOptions = [
 ];
 
 const selectedSort = ref(sortOptions[0].value);
+useDisableBodyScroll(isCartOpen);
 </script>
 
 <template lang="pug">
+//- .test Test test
 app-header(@open-cart="isCartOpen = true")
 .hero
   breadcrumbs-tail
@@ -58,6 +61,10 @@ footer
 </template>
 
 <style scoped lang="sass">
+.test
+  background-clip: text
+  color: transparent
+  background-color: red
 .hero
   position: relative
 
@@ -119,11 +126,11 @@ footer
   height: 300px
 
 .cart-translate-enter-active
-  animation: translate .5s
-  // transform: scale(2)
+  animation: translate .4s
 
 .cart-translate-leave-active
   animation: translate .4s reverse
+  overflow: hidden
 
 .overlay-fade-enter-active, .overlay-fade-leave-active
   transition: opacity .4s ease-in-out

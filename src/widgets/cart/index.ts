@@ -1,2 +1,2 @@
-export { default as CartSidebar } from './CartSidebar.vue';
-export { default as CartItem } from './CartItem.vue';
+export * from './ui';
+export * as cartModel from './model';
