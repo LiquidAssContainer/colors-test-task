@@ -6,7 +6,7 @@ import svgLoader from 'vite-svg-loader';
 // import checker from 'vite-plugin-checker';
 
 export default defineConfig({
-  base: '',
+  base: './',
   plugins: [
     vue(),
     vueJsx(),

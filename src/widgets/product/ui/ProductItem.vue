@@ -5,7 +5,6 @@ import { useStore } from 'vuex';
 import { AddButton } from 'features/add-to-cart/ui';
 import { AmountControls } from 'features/change-product-amount';
 import { ProductPrice } from 'entities/product-price';
-// import IconPlus from 'shared/ui/icons/plus.svg';
 
 interface Props {
   id: string;

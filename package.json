@@ -4,6 +4,7 @@
   "description": "Vue test task with paint catalog & cart",
   "author": "Lex",
   "license": "MIT",
+  "homepage": "./",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/LiquidAssContainer/colors-test-task.git"
