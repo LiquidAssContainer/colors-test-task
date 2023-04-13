@@ -1,26 +1,33 @@
 <script setup lang="ts">
-import { toRefs } from 'vue';
+import { computed } from 'vue';
 
 interface Props {
   name: string;
   label: string;
-  // value: any;
-  // model: any;
-  // onInput: any;
+  value: any;
   modelValue: any;
-
-  // input: any;
 }
 
 const props = defineProps<Props>();
-defineEmits(['update:modelValue']);
-// console.log(props.modelValue);
-const { name, label, modelValue } = toRefs(props);
+const emit = defineEmits(['update:modelValue']);
+
+const model = computed({
+  get() {
+    return props.modelValue;
+  },
+  set(value) {
+    emit('update:modelValue', value);
+  },
+});
 </script>
 
 <template lang="pug">
 label.input__container
-  input.input__control(type="checkbox" :name="name" :checked="modelValue" @input="$emit('update:modelValue', !modelValue)")
+  input.input__control(
+    type="checkbox"
+    :name="name"
+    :value="value"
+    v-model="model")
   .input__visual
   span.input__label
     | {{label}}
@@ -83,4 +90,5 @@ $transition: .2s all ease-in-out
     font-size: 1.2em
     letter-spacing: .06em
     text-transform: uppercase
+    user-select: none
 </style>

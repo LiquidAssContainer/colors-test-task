@@ -49,7 +49,7 @@ app-header(@open-cart="isCartOpen = true")
     carousel-slide(v-for="slide in heroSlides")
       hero-slide(v-bind="slide")
 main.main
-  filter-products
+  filter-products.sidebar
   section.catalog
     .catalog__header
       button.catalog__filters-btn(@click="areFiltersOpen = true")
@@ -69,10 +69,10 @@ teleport(to="body")
     v-overlay(v-if="isCartOpen")
   transition(name="cart-translate")
     cart-sidebar(v-if="isCartOpen" @close="isCartOpen = false")
-  v-overlay(v-if="areFiltersOpen")
-    bottom-sheet(v-if="areFiltersOpen" @close="areFiltersOpen = false")
+  template(v-if="areFiltersOpen")
+    v-overlay
+    bottom-sheet(@close="areFiltersOpen = false")
       filter-products
-
 footer
 </template>
 
@@ -100,8 +100,6 @@ footer
     position: absolute
     z-index: 1
     padding-top: 1.7vw
-    // top: 3vh
-    // left: 3.33vw
 
 .carousel
   @include to(tablet)
@@ -117,8 +115,14 @@ footer
 
   max-width: 1920px
   margin-inline: auto
-  // padding-inline: 64px
-  // grid-template-columns: 360px, 1fr
+
+.filter-products.sidebar
+  @include to(laptop)
+    display: none
+    visibility: hidden
+
+  @include media(desktop)
+    max-width: 240px
 
 .catalog
   width: 100%
@@ -139,7 +143,7 @@ footer
   color: #1F2020
 
 .catalog__filters-btn
-  @include from(laptop)
+  @include from(desktop)
     display: none
 
 .product-amount
@@ -147,9 +151,18 @@ footer
     display: none
 
 .product-list
-  display: flex
-  flex-wrap: wrap
-  gap: 16px 24px
+  @include to(laptop)
+    display: grid
+    grid-template-columns: repeat(2, minmax(0, 1fr))
+    gap: 2.4rem 1.6rem
+
+  @include media(laptop)
+    grid-template-columns: repeat(3, minmax(0, 1fr))
+
+  @include from(desktop)
+    display: flex
+    flex-wrap: wrap
+    gap: 16px 24px
 
   clip-path: inset(0 0 .2rem 0)
 

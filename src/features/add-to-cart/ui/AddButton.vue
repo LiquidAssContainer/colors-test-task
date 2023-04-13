@@ -24,19 +24,27 @@ button.add-button(@click="$emit('click')" :disabled="disabled")
   display: grid
   place-content: center
 
-  width: 8rem
-  height: 3.2rem
+  @include to(tablet)
+    width: 4rem
+    height: 2.4rem
 
-  background: $color-bg-green
-  border-radius: 8px
-  opacity: 0
+    background: $color-bg-button
+    border-radius: .6rem
 
-  transition: .2s opacity ease-in-out
+    &__icon
+      width: 1.6rem
 
-  border: none
-  cursor: pointer
-  outline: none
+  @include from(laptop)
+    width: 8rem
+    height: 3.2rem
 
-  &__icon
-    width: 2rem
+    background: $color-bg-green
+    border-radius: .8rem
+
+    &__icon
+      width: 2rem
+
+  // &:disabled
+  //   opacity: .5
+  //   cursor: auto
 </style>

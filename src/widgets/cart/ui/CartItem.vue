@@ -3,6 +3,7 @@ import { computed } from 'vue';
 import { useStore } from 'vuex';
 
 import { AmountControls } from 'features/change-product-amount';
+import { ProductPrice } from 'entities/product-price';
 import IconClose from 'shared/ui/icons/close.svg';
 
 interface Props {
@@ -28,8 +29,7 @@ li.cart-item
   .cart-item__info
     .cart-item__name
       | {{ name }}
-    .cart-item__price
-      | {{ totalPrice }} ₽
+    product-price(:price="totalPrice")
   amount-controls(:id="props.id" :amount="props.amount")
   button.cart-item__remove-btn(@click="remove")
     icon-close.icon-close
@@ -56,13 +56,6 @@ li.cart-item
 
   color: #1F2020
   margin-bottom: 1.6rem
-
-.cart-item__price
-  font-size: 1.6rem
-  font-weight: 600
-  line-height: 100%
-
-  color: #1F2020
 
 .cart-item__info
   margin-left: .8rem

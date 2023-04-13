@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue';
+import { computed, ref } from 'vue';
+import { useStore } from 'vuex';
 
 import { AppLogo } from './AppLogo';
 import { NavLink } from './NavLink';
@@ -9,7 +10,6 @@ import IconProfile from './icons/profile.svg';
 import IconHeart from './icons/heart.svg';
 import IconMenu from './icons/burger-menu.svg';
 import IconClose from 'shared/ui/icons/close.svg';
-import { useStore } from 'vuex';
 
 const store = useStore();
 
@@ -26,7 +26,6 @@ const navLinks = [
 const cartItemsAmount = computed(() => store.getters['cart/totalAmount']);
 
 const isMenuOpen = ref(false);
-watch(isMenuOpen, () => console.log(isMenuOpen.value));
 </script>
 
 <template lang="pug">

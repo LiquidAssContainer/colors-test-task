@@ -6,6 +6,7 @@ import { useOnClickOutside } from 'shared/lib/useOnClickOutside';
 import IconClose from 'shared/ui/icons/close.svg';
 import CartItem from './CartItem.vue';
 // import { useDisableBodyScroll } from 'shared/lib/useDisableBodyScroll';
+import { formatNumber } from 'shared/lib/formatNumber';
 
 import { getAmountWord } from '../lib';
 
@@ -19,7 +20,6 @@ const items = computed(() => store.state.cart.items);
 const totalPrice = computed(() => store.getters['cart/totalPrice']);
 const totalAmount = computed(() => store.getters['cart/totalAmount']);
 const amountWord = computed(() => getAmountWord(totalAmount.value));
-// console.log(totalPrice);
 
 const clear = () => store.dispatch('cart/clear');
 
@@ -48,7 +48,7 @@ useOnClickOutside(cartElem, () => emit('close'));
       .cart__total 
         | Итого
       .cart__sum
-        | {{ totalPrice }}₽
+        | {{ formatNumber(totalPrice) }}₽
     button.cart__buy-btn
       | Оформить заказ
 </template>

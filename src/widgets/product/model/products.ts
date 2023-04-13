@@ -61,13 +61,7 @@ export const productsStore = {
       commit('changeSort', sort);
     },
     changeFilters: ({ commit }: Context, filters: any) => {
-      const filtersArr = [];
-      for (const filter in filters) {
-        if (filters[filter]) {
-          filtersArr.push(filter);
-        }
-      }
-      commit('changeFilters', filtersArr);
+      commit('changeFilters', filters);
     },
   },
   getters: {

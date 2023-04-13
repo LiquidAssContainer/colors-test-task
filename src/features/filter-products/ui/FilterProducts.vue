@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive, ref, watch, watchEffect } from 'vue';
+import { ref, watch } from 'vue';
 import { useStore } from 'vuex';
 
 import { SliderCheckbox } from 'shared/ui/components/SliderCheckbox';
@@ -19,34 +19,25 @@ const filters: Filter[] = [
 
 const store = useStore();
 
-// const checkedFilters = ref([]);
-
-const form = reactive(
-  filters.reduce((acc: any, { name }: Filter) => {
-    acc[name] = false;
-    return acc;
-  }, {}),
-);
+const form = ref(store.state.products.filters);
 
 watch(form, () => {
-  console.log(form);
-  store.dispatch('products/changeFilters', { ...form });
+  store.dispatch('products/changeFilters', form);
 });
-
-// console.log(form);
 </script>
 
 <template lang="pug">
-.filters
+.filter-products
   slider-checkbox(
     v-for="filter in filters"
     :key="filter.name"
+    :value="filter.name"
     v-bind="filter"
-    v-model="form[filter.name]")
+    v-model="form")
 </template>
 
 <style scoped lang="sass">
-.filters
+.filter-products
   width: 100%
   max-width: 280px
 
