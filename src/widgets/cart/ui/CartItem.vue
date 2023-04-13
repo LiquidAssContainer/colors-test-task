@@ -30,46 +30,49 @@ li.cart-item
     .cart-item__name
       | {{ name }}
     product-price(:price="totalPrice")
-  amount-controls(:id="props.id" :amount="props.amount")
+  amount-controls(:id="id" :amount="amount")
   button.cart-item__remove-btn(@click="remove")
     icon-close.icon-close
 </template>
 
 <style scoped lang="sass">
-.icon-close
-  width: 2.4rem
-  color: #d2d2d2
-.cart-item
-  padding-block: 12px
-  border-top: 1px solid lightgrey
-
 .cart-item
   display: flex
   align-items: center
   justify-content: space-between
 
-.cart-item__name
-  font-weight: 300
-  font-size: 16px
-  line-height: 112%
-  letter-spacing: 0.02em
+  padding-block: 12px
+  border-top: 1px solid lightgrey
 
-  color: #1F2020
-  margin-bottom: 1.6rem
+  &__remove-btn
+    margin-left: 4rem
 
-.cart-item__info
-  margin-left: .8rem
+  &__name
+    font-size: 1.6rem
+    font-weight: 300
+    line-height: 1.12
+    letter-spacing: 0.02em
 
-.cart-item__img
-  @include size(9.6rem)
+    color: #1F2020
+    margin-bottom: 1.6rem
 
-  position: relative
-  bottom: 1rem
+  &__info
+    margin-left: .8rem
 
-  display: block
-  object-fit: cover
+  &__img
+    @include size(9.6rem)
 
-  &-wrapper
-    flex-shrink: 0
-    overflow: hidden
+    position: relative
+    bottom: 1rem
+
+    display: block
+    object-fit: cover
+
+    &-wrapper
+      flex-shrink: 0
+      overflow: hidden
+
+.icon-close
+  width: 2.4rem
+  color: #d2d2d2
 </style>

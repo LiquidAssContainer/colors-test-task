@@ -2,12 +2,11 @@
 import { computed, ref } from 'vue';
 import { useStore } from 'vuex';
 
-import { useOnClickOutside } from 'shared/lib/useOnClickOutside';
 import IconClose from 'shared/ui/icons/close.svg';
 import CartItem from './CartItem.vue';
-// import { useDisableBodyScroll } from 'shared/lib/useDisableBodyScroll';
 import { formatNumber } from 'shared/lib/formatNumber';
 
+import { useOnClickOutside } from 'shared/lib/useOnClickOutside';
 import { getAmountWord } from '../lib';
 
 const store = useStore();
@@ -71,6 +70,9 @@ useOnClickOutside(cartElem, () => emit('close'));
   width: 100%
   min-height: 100vh
   padding: 40px
+
+  @include to(tablet)
+    padding-inline: 2.4rem
 
   overflow-y: scroll
   overflow-x: hidden

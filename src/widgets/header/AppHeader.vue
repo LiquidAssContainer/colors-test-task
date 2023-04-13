@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
-import { useStore } from 'vuex';
+import { ref } from 'vue';
 
 import { AppLogo } from './AppLogo';
 import { NavLink } from './NavLink';
@@ -10,45 +9,43 @@ import IconProfile from './icons/profile.svg';
 import IconHeart from './icons/heart.svg';
 import IconMenu from './icons/burger-menu.svg';
 import IconClose from 'shared/ui/icons/close.svg';
-
-const store = useStore();
+import { OpenCartButton } from './OpenCartButton';
 
 defineEmits(['openCart']);
 
 const navLinks = [
   { href: '#procuts', label: 'Продукты' },
-  { href: '#', label: 'Цвета' },
+  { href: '#colors', label: 'Цвета' },
   { href: '#', label: 'Вдохновение' },
   { href: '#', label: 'Советы' },
   { href: '#', label: 'Найти магазин' },
 ];
-
-const cartItemsAmount = computed(() => store.getters['cart/totalAmount']);
 
 const isMenuOpen = ref(false);
 </script>
 
 <template lang="pug">
 .app-header
-  button.menu-btn(@click="isMenuOpen = !isMenuOpen")
+  button.menu-btn.mobile-only(@click="isMenuOpen = !isMenuOpen")
     icon-close(v-if="isMenuOpen")
     icon-menu(v-else)
   app-logo
-  nav.nav
+  nav.nav(:data-opened="isMenuOpen")
     nav-link(v-for="link in navLinks" :href="link.href" :key="link.href")
       | {{ link.label }}
-  .contact
-    address
-      a.contact__tel(href="tel:+74952217769")
-        | +7 (495) 221-77-69
-    button.callback
-      | Заказать звонок
-  .controls
-    icon-heart
-    icon-profile
-    icon-search
-    button.controls__btn_cart(@click="$emit('openCart')")
-      | {{ cartItemsAmount }}
+  .desktop-controls
+    .contact
+      address
+        a.contact__tel(href="tel:+74952217769")
+          | +7 (495) 221-77-69
+      button.callback
+        | Заказать звонок
+    .controls
+      icon-heart
+      icon-profile
+      icon-search
+      open-cart-button(@open-cart="$emit('openCart')")
+  open-cart-button.mobile-only(@open-cart="$emit('openCart')")
 </template>
 
 <style scoped lang="sass">
@@ -56,24 +53,47 @@ const isMenuOpen = ref(false);
   flex-shrink: 0
   width: 2.4rem
 
-  @include from(laptop)
-    // appearance: none
-    display: none //TODO
-
 .app-header
   @include padding-inline
+
+  position: relative
 
   display: flex
   flex-wrap: wrap
   align-items: center
   justify-content: space-between //*
 
+  max-width: 1920px
   height: 10.4rem
-  // padding-inline: 64px
+  margin-inline: auto
 
 .nav
   display: flex
   gap: 2.4rem
+  background-color: $color-bg-primary
+
+  @include to(tablet)
+    position: absolute
+    left: 0
+    top: 100%
+    z-index: 200
+
+    width: 100%
+    padding: 0 20px 20px
+    border-bottom: 1px solid $grey-1
+
+    flex-direction: column
+
+    &[data-opened="false"]
+      display: none
+
+.desktop-controls
+  display: flex
+  align-items: center
+  gap: 6vw
+
+  @include to(tablet)
+    display: none
 
 .contact
   line-height: 1
@@ -123,4 +143,8 @@ address
   font-size: 1.2rem
   letter-spacing: 0.06em
   line-height: 1
+
+.mobile-only
+  @include from(laptop)
+    display: none
 </style>

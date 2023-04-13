@@ -72,13 +72,12 @@ const addProduct = () => {
     align-items: center
     gap: .5rem 1rem
 
+    height: 3.2rem
+
   &__price
     font-size: 1.6rem
     font-weight: 600
     line-height: 1
-
-.amount-controls
-  height: 3.2rem
 
 .product__img
   position: absolute

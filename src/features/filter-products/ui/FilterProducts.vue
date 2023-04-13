@@ -1,28 +1,19 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { computed } from 'vue';
 import { useStore } from 'vuex';
 
 import { SliderCheckbox } from 'shared/ui/components/SliderCheckbox';
-
-interface Filter {
-  name: string;
-  label: string;
-}
-
-const filters: Filter[] = [
-  { name: 'new', label: 'Новинки' },
-  { name: 'available', label: 'Есть в наличии' },
-  { name: 'contract', label: 'Контрактные' },
-  { name: 'exclusive', label: 'Эксклюзивные' },
-  { name: 'sale', label: 'Распродажа' },
-];
+import { filters } from '../model';
 
 const store = useStore();
 
-const form = ref(store.state.products.filters);
-
-watch(form, () => {
-  store.dispatch('products/changeFilters', form);
+const form = computed({
+  get() {
+    return store.state.products.filters;
+  },
+  set(value) {
+    store.dispatch('products/changeFilters', value);
+  },
 });
 </script>
 

@@ -48,6 +48,8 @@ app-header(@open-cart="isCartOpen = true")
   v-carousel
     carousel-slide(v-for="slide in heroSlides")
       hero-slide(v-bind="slide")
+h1.heading
+  | Краски
 main.main
   filter-products.sidebar
   section.catalog
@@ -88,8 +90,11 @@ footer
       position: absolute
       content: ''
       top: 0
-      width: 100%
+      left: 0
+      right: 0
+
       height: .1rem
+      margin-inline: 2.4rem
 
       background: $color-border-primary
       opacity: 0.06
@@ -105,16 +110,33 @@ footer
   @include to(tablet)
     display: none
 
+.heading
+  @include padding-inline
+
+  padding-block: 4.8rem
+
+  font-weight: 400
+  font-size: 3.6rem
+  line-height: 1
+  letter-spacing: -0.04em
+
+  color: #1F2020
+
+  @include from(laptop)
+    display: none
+
 .main
   @include padding-inline
 
   display: flex
   gap: 20px
-  padding-top: 7.2rem
   padding-bottom: 7.5%
 
   max-width: 1920px
   margin-inline: auto
+
+  @include from(laptop)
+    padding-top: 7.2rem
 
 .filter-products.sidebar
   @include to(laptop)
@@ -147,7 +169,7 @@ footer
     display: none
 
 .product-amount
-  @include to(tablet)
+  @include to(laptop)
     display: none
 
 .product-list
