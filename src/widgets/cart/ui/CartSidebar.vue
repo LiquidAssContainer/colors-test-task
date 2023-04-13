@@ -98,7 +98,13 @@ useOnClickOutside(cartElem, () => emit('close'));
     display: flex
     justify-content: space-between
     align-items: flex-end
+    gap: 10px
+
+    padding-top: 10px
     margin-top: auto
+
+  &__total-price
+    flex-shrink: 0
 
   &__total
     font-weight: 400

@@ -29,10 +29,11 @@ const isMenuOpen = ref(false);
   button.menu-btn.mobile-only(@click="isMenuOpen = !isMenuOpen")
     icon-close(v-if="isMenuOpen")
     icon-menu(v-else)
-  app-logo
-  nav.nav(:data-opened="isMenuOpen")
-    nav-link(v-for="link in navLinks" :href="link.href" :key="link.href")
-      | {{ link.label }}
+  .nav__container
+    app-logo
+    nav.nav(:data-opened="isMenuOpen")
+      nav-link(v-for="link in navLinks" :href="link.href" :key="link.href")
+        | {{ link.label }}
   .desktop-controls
     .contact
       address
@@ -62,15 +63,27 @@ const isMenuOpen = ref(false);
   flex-wrap: wrap
   align-items: center
   justify-content: space-between //*
+  gap: 15%
 
   max-width: 1920px
   height: 10.4rem
+  padding-block: 1.5rem
   margin-inline: auto
+
+.nav__container
+  display: flex
+  align-items: center
+  // justify-content: space-between
+  justify-content: center
+  flex-grow: 1
+  gap: 2.4rem
 
 .nav
   display: flex
   gap: 2.4rem
+
   background-color: $color-bg-primary
+  margin-left: auto
 
   @include to(tablet)
     position: absolute
@@ -90,7 +103,11 @@ const isMenuOpen = ref(false);
 .desktop-controls
   display: flex
   align-items: center
-  gap: 6vw
+  // gap: 6vw
+  gap: 2.4rem
+  flex-grow: 1
+  // justify-content: space-between
+  justify-content: center
 
   @include to(tablet)
     display: none
@@ -123,6 +140,7 @@ address
 .controls
   display: flex
   gap: 2.8rem
+  margin-left: auto
 
 .controls svg
   color: $color-icon-primary

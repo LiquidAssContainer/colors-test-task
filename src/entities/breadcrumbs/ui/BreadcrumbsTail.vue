@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 // ну типа просто хардкод
 const links = [
   { href: '#home', title: 'Главная' },
@@ -14,7 +14,7 @@ ul.bread-crumbs
       | {{title}}
 </template>
   
-<style lang="sass" scoped>
+<style scoped lang="sass">
 $gap-items: 1.9rem
 $width-bullet: .3rem
 $right-pos-bullet: calc(($gap-items + $width-bullet) / -2)
@@ -29,22 +29,22 @@ $right-pos-bullet: calc(($gap-items + $width-bullet) / -2)
     display: flex
     align-items: center
 
-    &:not(:last-child)
-      // margin-right: $gap-items
+    &:not(:last-child)::after
+      @include size($width-bullet)
 
-      &::after
-        position: absolute
-        content: ''
-        right: $right-pos-bullet
-        @include size($width-bullet)
+      position: absolute
+      content: ''
+      right: $right-pos-bullet
 
-        border-radius: 50%
-        background: #C4C4C4
+      border-radius: 50%
+      background: #C4C4C4
+
+      @include from(laptop)
         opacity: .3
 
   &__link
     font-size: 1rem
-    line-height: 100%
+    line-height: 1
 
     letter-spacing: .06em
     text-transform: uppercase

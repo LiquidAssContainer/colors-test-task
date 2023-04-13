@@ -30,34 +30,44 @@ li.cart-item
     .cart-item__name
       | {{ name }}
     product-price(:price="totalPrice")
-  amount-controls(:id="id" :amount="amount")
-  button.cart-item__remove-btn(@click="remove")
-    icon-close.icon-close
+  .cart-item__controls
+    amount-controls(:id="id" :amount="amount")
+    button.cart-item__remove-btn(@click="remove")
+      icon-close.icon-close
 </template>
 
 <style scoped lang="sass">
 .cart-item
   display: flex
+  flex-wrap: wrap
   align-items: center
   justify-content: space-between
+  row-gap: 1rem
 
   padding-block: 12px
   border-top: 1px solid lightgrey
 
-  &__remove-btn
-    margin-left: 4rem
-
   &__name
+    max-width: 20rem
+    margin-bottom: 1.6rem
+
     font-size: 1.6rem
     font-weight: 300
     line-height: 1.12
     letter-spacing: 0.02em
 
     color: #1F2020
-    margin-bottom: 1.6rem
 
   &__info
+    flex-grow: 100
     margin-left: .8rem
+
+  &__controls
+    display: flex
+
+    justify-content: space-between
+    flex-grow: 1
+    gap: 4rem
 
   &__img
     @include size(9.6rem)

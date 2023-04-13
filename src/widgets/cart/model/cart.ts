@@ -31,15 +31,21 @@ export const cartStore = {
     },
     remove(state: State, id: string) {
       const index = getIndexById(state.items, id);
-      state.items.splice(index, 1);
+      if (index !== -1) {
+        state.items.splice(index, 1);
+      }
     },
     increment(state: State, id: string) {
-      const item = getItemById(state.items, id) as Product;
-      item.amount++;
+      const item = getItemById(state.items, id);
+      if (item) {
+        item.amount++;
+      }
     },
     decrement(state: State, id: string) {
-      const item = getItemById(state.items, id) as Product;
-      item.amount--;
+      const item = getItemById(state.items, id);
+      if (item) {
+        item.amount--;
+      }
     },
     clear(state: State) {
       state.items = [];
@@ -53,16 +59,10 @@ export const cartStore = {
       }
     },
     remove: ({ state, commit }: Context, id: string) => {
-      const item = getItemById(state.items, id);
-      if (item) {
-        commit('remove', id);
-      }
+      commit('remove', id);
     },
     increment: ({ state, commit }: Context, id: string) => {
-      const item = getItemById(state.items, id);
-      if (item) {
-        commit('increment', id);
-      }
+      commit('increment', id);
     },
     decrement: ({ state, commit }: Context, id: string) => {
       const item = getItemById(state.items, id);
