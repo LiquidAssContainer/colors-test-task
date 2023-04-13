@@ -23,7 +23,7 @@ const navLinks = [
   { href: '#', label: 'Найти магазин' },
 ];
 
-const quantity = computed(() => store.getters['cart/totalQuantity']);
+const cartItemsAmount = computed(() => store.getters['cart/totalAmount']);
 
 const isMenuOpen = ref(false);
 watch(isMenuOpen, () => console.log(isMenuOpen.value));
@@ -48,7 +48,8 @@ watch(isMenuOpen, () => console.log(isMenuOpen.value));
     icon-heart
     icon-profile
     icon-search
-    button.controls__btn_cart(@click="$emit('openCart')") {{ quantity }}
+    button.controls__btn_cart(@click="$emit('openCart')")
+      | {{ cartItemsAmount }}
 </template>
 
 <style scoped lang="sass">

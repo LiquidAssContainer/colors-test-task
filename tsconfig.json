@@ -10,7 +10,7 @@
     "noImplicitAny": true,
     "module": "esnext",
     "moduleResolution": "node",
-    "lib": ["es6", "DOM"],
+    "lib": ["es2017", "DOM"],
     "target": "es5",
     "allowJs": true,
     "resolveJsonModule": true

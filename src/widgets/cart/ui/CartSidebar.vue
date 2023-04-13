@@ -19,6 +19,7 @@ const items = computed(() => store.state.cart.items);
 const totalPrice = computed(() => store.getters['cart/totalPrice']);
 const totalAmount = computed(() => store.getters['cart/totalAmount']);
 const amountWord = computed(() => getAmountWord(totalAmount.value));
+// console.log(totalPrice);
 
 const clear = () => store.dispatch('cart/clear');
 

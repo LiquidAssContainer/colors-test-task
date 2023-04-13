@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { reactive, ref, watch, watchEffect } from 'vue';
+import { useStore } from 'vuex';
+
 import { SliderCheckbox } from 'shared/ui/components/SliderCheckbox';
 
 interface Filter {
@@ -15,6 +17,8 @@ const filters: Filter[] = [
   { name: 'sale', label: 'Распродажа' },
 ];
 
+const store = useStore();
+
 // const checkedFilters = ref([]);
 
 const form = reactive(
@@ -24,19 +28,27 @@ const form = reactive(
   }, {}),
 );
 
-watch(form, () => console.log(form));
+watch(form, () => {
+  console.log(form);
+  store.dispatch('products/changeFilters', { ...form });
+});
 
 // console.log(form);
 </script>
 
 <template lang="pug">
 .filters
-  slider-checkbox(v-for="filter in filters" :key="filter.name" v-bind="filter" v-model="form[filter.name]")
+  slider-checkbox(
+    v-for="filter in filters"
+    :key="filter.name"
+    v-bind="filter"
+    v-model="form[filter.name]")
 </template>
 
-<style lang="sass" scoped>
+<style scoped lang="sass">
 .filters
-  width: 360px
+  width: 100%
+  max-width: 280px
 
   display: flex
   flex-direction: column

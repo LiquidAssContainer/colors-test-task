@@ -2,6 +2,7 @@
 import { computed } from 'vue';
 import { useStore } from 'vuex';
 
+import { AmountControls } from 'features/change-product-amount';
 import IconClose from 'shared/ui/icons/close.svg';
 
 interface Props {
@@ -9,14 +10,12 @@ interface Props {
   name: string;
   price: number;
   amount: number;
-  imgSrc: string;
+  img: string;
 }
 
 const store = useStore();
 const props = defineProps<Props>();
 
-const increment = () => store.dispatch('cart/increment', props.id);
-const decrement = () => store.dispatch('cart/decrement', props.id);
 const remove = () => store.dispatch('cart/remove', props.id);
 
 const totalPrice = computed(() => props.price * props.amount);
@@ -24,17 +23,14 @@ const totalPrice = computed(() => props.price * props.amount);
 
 <template lang="pug">
 li.cart-item
-  img.cart-item__img(:src="imgSrc")
+  .cart-item__img-wrapper
+    img.cart-item__img(:src="img")
   .cart-item__info
     .cart-item__name
       | {{ name }}
     .cart-item__price
       | {{ totalPrice }} ₽
-  .cart-item__controls
-    button.cart-item__quantity-btn(@click="decrement") -
-    .cart-item__quantity
-      | {{ amount }}
-    button.cart-item__quantity-btn(@click="increment") +
+  amount-controls(:id="props.id" :amount="props.amount")
   button.cart-item__remove-btn(@click="remove")
     icon-close.icon-close
 </template>
@@ -46,22 +42,6 @@ li.cart-item
 .cart-item
   padding-block: 12px
   border-top: 1px solid lightgrey
-
-  &__quantity-btn
-    width: 4rem
-    height: 2.4rem
-
-    background-color: $color-bg-button
-    border-radius: 4px
-
-.cart-item__controls
-  display: flex
-  align-items: center
-  gap: 2rem
-
-.cart-item__quantity
-  font-size: 16px
-  color: #1F2020
 
 .cart-item
   display: flex
@@ -78,8 +58,8 @@ li.cart-item
   margin-bottom: 1.6rem
 
 .cart-item__price
+  font-size: 1.6rem
   font-weight: 600
-  font-size: 16px
   line-height: 100%
 
   color: #1F2020
@@ -88,7 +68,15 @@ li.cart-item
   margin-left: .8rem
 
 .cart-item__img
-  width: 9.6rem
-  height: 9.6rem
+  @include size(9.6rem)
+
+  position: relative
+  bottom: 1rem
+
+  display: block
   object-fit: cover
+
+  &-wrapper
+    flex-shrink: 0
+    overflow: hidden
 </style>

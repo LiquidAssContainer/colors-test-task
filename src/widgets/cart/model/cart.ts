@@ -6,7 +6,7 @@ export interface Product {
   name: string;
   price: number;
   amount: number;
-  imgSrc: string;
+  img: string;
 }
 
 interface State {
