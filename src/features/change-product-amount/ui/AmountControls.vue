@@ -6,6 +6,7 @@ import IconPlus from 'shared/ui/icons/plus.svg';
 interface Props {
   id: string;
   amount: number;
+  disabled?: boolean;
 }
 
 const store = useStore();
@@ -17,11 +18,11 @@ const decrement = () => store.dispatch('cart/decrement', props.id);
 
 <template lang="pug">
 .amount-controls
-  button.amount-controls__amount-btn(@click="decrement")
+  button.amount-controls__amount-btn(:disabled="disabled" @click="decrement")
     icon-minus.amount-btn__icon
   .amount-controls__amount
     | {{ amount }}
-  button.amount-controls__amount-btn(@click="increment")
+  button.amount-controls__amount-btn(:disabled="disabled" @click="increment")
     icon-plus.amount-btn__icon
 </template>
 
@@ -45,6 +46,9 @@ const decrement = () => store.dispatch('cart/decrement', props.id);
 
     background-color: $color-bg-button
     border-radius: 4px
+
+    &:disabled
+      cursor: auto
 
 .amount-btn__icon
   width: 1.6rem

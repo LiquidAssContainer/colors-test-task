@@ -5,6 +5,7 @@ import { useStore } from 'vuex';
 import { AmountControls } from 'features/change-product-amount';
 import { ProductPrice } from 'entities/product-price';
 import IconClose from 'shared/ui/icons/close.svg';
+import IconRepeat from './icons/repeat.svg';
 
 interface Props {
   id: string;
@@ -12,18 +13,20 @@ interface Props {
   price: number;
   amount: number;
   img: string;
+  isRemoved?: boolean;
 }
 
 const store = useStore();
 const props = defineProps<Props>();
 
-const remove = () => store.dispatch('cart/remove', props.id);
+// const remove = () => store.dispatch('cart/remove', props.id);
+const remove = () => store.dispatch('cart/toggleRemoved', props.id);
 
 const totalPrice = computed(() => props.price * props.amount);
 </script>
 
 <template lang="pug">
-li.cart-item
+li.cart-item(:class="{ removed: isRemoved }")
   .cart-item__img-wrapper
     img.cart-item__img(:src="img")
   .cart-item__info
@@ -31,9 +34,10 @@ li.cart-item
       | {{ name }}
     product-price(:price="totalPrice")
   .cart-item__controls
-    amount-controls(:id="id" :amount="amount")
-    button.cart-item__remove-btn(@click="remove")
-      icon-close.icon-close
+    amount-controls(:id="id" :amount="amount" :disabled="isRemoved")
+    button.cart-item__toggle-remove-btn(@click="remove")
+      icon-close.icon-remove(v-if="!isRemoved")
+      icon-repeat.icon-repeat(v-else)
 </template>
 
 <style scoped lang="sass">
@@ -46,6 +50,9 @@ li.cart-item
 
   padding-block: 12px
   border-top: 1px solid lightgrey
+
+  &.removed *:not(:has(.icon-repeat)):not(svg):not(svg *)
+    opacity: .5
 
   &__name
     max-width: 20rem
@@ -80,7 +87,7 @@ li.cart-item
       flex-shrink: 0
       overflow: hidden
 
-.icon-close
+.icon-remove
   width: 2.4rem
   color: #d2d2d2
 </style>

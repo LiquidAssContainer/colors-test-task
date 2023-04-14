@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, onBeforeUnmount, ref } from 'vue';
 import { useStore } from 'vuex';
 
 import IconClose from 'shared/ui/icons/close.svg';
@@ -23,6 +23,10 @@ const amountWord = computed(() => getAmountWord(totalAmount.value));
 const clear = () => store.dispatch('cart/clear');
 
 useOnClickOutside(cartElem, () => emit('close'));
+
+onBeforeUnmount(() => {
+  store.dispatch('cart/cleanAllRemoved');
+});
 </script>
 
 <template lang="pug">

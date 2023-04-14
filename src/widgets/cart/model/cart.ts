@@ -7,6 +7,7 @@ export interface Product {
   price: number;
   amount: number;
   img: string;
+  isRemoved?: boolean;
 }
 
 interface State {
@@ -50,6 +51,15 @@ export const cartStore = {
     clear(state: State) {
       state.items = [];
     },
+    toggleRemoved: (state: State, id: string) => {
+      const item = getItemById(state.items, id);
+      if (item) {
+        item.isRemoved = !item.isRemoved;
+      }
+    },
+    cleanAllRemoved: (state: State) => {
+      state.items = state.items.filter(({ isRemoved }) => !isRemoved);
+    },
   },
   actions: {
     add: ({ state, commit }: Context, product: Omit<Product, 'amount'>) => {
@@ -58,10 +68,10 @@ export const cartStore = {
         commit('add', { ...product, amount: 1 });
       }
     },
-    remove: ({ state, commit }: Context, id: string) => {
+    remove: ({ commit }: Context, id: string) => {
       commit('remove', id);
     },
-    increment: ({ state, commit }: Context, id: string) => {
+    increment: ({ commit }: Context, id: string) => {
       commit('increment', id);
     },
     decrement: ({ state, commit }: Context, id: string) => {
@@ -71,21 +81,28 @@ export const cartStore = {
       if (item.amount > 1) {
         commit('decrement', id);
       } else {
-        commit('remove', id);
+        // commit('remove', id);
+        commit('toggleRemoved', id);
       }
     },
     clear: ({ commit }: Context) => {
       commit('clear');
     },
+    toggleRemoved: ({ commit }: Context, id: string) => {
+      commit('toggleRemoved', id);
+    },
+    cleanAllRemoved: ({ commit }: Context) => {
+      commit('cleanAllRemoved');
+    },
   },
   getters: {
-    totalAmount: (state: any) => {
+    totalAmount: (state: State) => {
       return state.items.reduce(
-        (acc: number, { amount }: any) => acc + amount,
+        (acc: number, { amount }: Product) => acc + amount,
         0,
       );
     },
-    totalPrice: (state: any) => {
+    totalPrice: (state: State) => {
       return state.items.reduce(
         (acc: number, { price, amount }: Product) => acc + price * amount,
         0,
