@@ -48,7 +48,7 @@ useOnClickOutside(cartElem, () => emit('close'));
         | Итого
       .cart__sum
         | {{ formatNumber(totalPrice) }}₽
-    button.cart__buy-btn
+    button.cart__buy-btn(:disabled="!totalAmount")
       | Оформить заказ
 </template>
 
@@ -87,12 +87,10 @@ useOnClickOutside(cartElem, () => emit('close'));
     margin-bottom: 80px
 
   &__title
+    font-size: 3rem
     font-weight: 500
-    font-size: 30px
-    line-height: 88%
-
+    line-height: 0.88
     letter-spacing: -0.04em
-    color: #1F2020
 
   &__footer
     display: flex
@@ -107,19 +105,16 @@ useOnClickOutside(cartElem, () => emit('close'));
     flex-shrink: 0
 
   &__total
-    font-weight: 400
-    font-size: 16px
+    font-size: 1.6rem
     line-height: 100%
-    color: #1F2020
     margin-bottom: 6px
 
   &__sum
     font-style: normal
     font-weight: 500
-    font-size: 30px
+    font-size: 3rem
     line-height: 100%
     letter-spacing: -0.02em
-    color: #1F2020
 
   &__buy-btn
     width: 100%
@@ -130,38 +125,38 @@ useOnClickOutside(cartElem, () => emit('close'));
     letter-spacing: 0.06em
     text-transform: uppercase
 
-    color: #1F2020
     background-color: $color-bg-green
+    color: $color-typo-primary
     border-radius: .4rem
     height: 5.6rem
     transition: all .2s ease-in-out
 
-    &:hover
+    &:hover:not(:disabled)
       background-color: darken(#7BB899, 10%)
 
-.button-close
-  display: flex
-  box-sizing: border-box
-  width: 48px
-  height: 48px
-  left: 512px
-  top: 32px
-  border-radius: 50%
-  background: transparent
+    &:disabled
+      opacity: .7
+      cursor: auto
 
-  // opacity: 0.1
+.button-close
+  @include size(4.8rem)
+
+  display: flex
+
   border: 1px solid rgba(0, 0, 0, 0.1)
+  border-radius: 50%
 
 .cart-items__header
   display: flex
   justify-content: space-between
 
-  font-size: 14px
+  font-size: 1.4rem
   margin-bottom: 1rem
 
 .cart-items__clear-btn
   opacity: 0.4
   font-weight: 300
+  color: $color-typo-primary
   transition: all .2s ease-in-out
 
   &:hover

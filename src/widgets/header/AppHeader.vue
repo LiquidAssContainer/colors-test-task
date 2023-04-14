@@ -27,8 +27,8 @@ const isMenuOpen = ref(false);
 <template lang="pug">
 .app-header
   button.menu-btn.mobile-only(@click="isMenuOpen = !isMenuOpen")
-    icon-close(v-if="isMenuOpen")
-    icon-menu(v-else)
+    icon-close.menu-btn__icon(v-if="isMenuOpen")
+    icon-menu.menu-btn__icon(v-else)
   .nav__container
     app-logo
     nav.nav(:data-opened="isMenuOpen")
@@ -42,9 +42,9 @@ const isMenuOpen = ref(false);
       button.callback
         | Заказать звонок
     .controls
-      icon-heart
-      icon-profile
-      icon-search
+      icon-heart.controls__icon
+      icon-profile.controls__icon
+      icon-search.controls__icon
       open-cart-button(@open-cart="$emit('openCart')")
   open-cart-button.mobile-only(@open-cart="$emit('openCart')")
 </template>
@@ -53,6 +53,9 @@ const isMenuOpen = ref(false);
 .menu-btn
   flex-shrink: 0
   width: 2.4rem
+
+  &__icon
+    color: $color-icon-primary
 
 .app-header
   @include padding-inline
@@ -122,15 +125,15 @@ address
   font-size: 1.6rem
   font-weight: 500
   font-style: normal
-  color: $color-typo-primary
-
   letter-spacing: -0.02em
 
-.callback
-  font-size: 14px
-  line-height: 100%
   color: $color-typo-primary
 
+.callback
+  font-size: 1.4rem
+  line-height: 1
+
+  color: $color-typo-primary
   opacity: 0.3
   transition: .2s all ease-in-out
 
@@ -142,25 +145,9 @@ address
   gap: 2.8rem
   margin-left: auto
 
-.controls svg
+.controls__icon
   color: $color-icon-primary
   max-width: 2rem
-
-.controls__btn_cart
-  @include size(2.4rem)
-
-  display: grid
-  place-content: center
-
-  background-color: $color-bg-green
-  color: $color-typo-primary
-
-  border-radius: 50%
-
-  font-weight: 500
-  font-size: 1.2rem
-  letter-spacing: 0.06em
-  line-height: 1
 
 .mobile-only
   @include from(laptop)

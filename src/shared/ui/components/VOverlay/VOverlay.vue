@@ -9,7 +9,7 @@ $color-background: #000
 .overlay
   position: fixed
   inset: 0
-  z-index: 1
+  z-index: 900
 
   background-color: rgba($color-background, 0.7)
   cursor: pointer

@@ -24,6 +24,8 @@ button.add-button(@click="$emit('click')" :disabled="disabled")
   display: grid
   place-content: center
 
+  color: $color-icon-primary
+
   @include to(tablet)
     width: 4rem
     height: 2.4rem
@@ -43,8 +45,4 @@ button.add-button(@click="$emit('click')" :disabled="disabled")
 
     &__icon
       width: 2rem
-
-  // &:disabled
-  //   opacity: .5
-  //   cursor: auto
 </style>

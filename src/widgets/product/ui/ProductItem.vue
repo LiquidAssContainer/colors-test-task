@@ -66,12 +66,12 @@ const addProduct = () => {
 
   &__footer
     display: flex
-    flex-wrap: wrap
     justify-content: space-between
     align-items: center
+    flex-wrap: wrap
     gap: .5rem 1rem
 
-    height: 3.2rem
+    min-height: 3.2rem
 
   &__price
     font-size: 1.6rem
@@ -92,10 +92,8 @@ const addProduct = () => {
     padding: 50%
 .product__name
   font-weight: 300
-  font-size: 16px
-  line-height: 112%
+  font-size: 1.6rem
+  line-height: 1.12
 
   letter-spacing: 0.02em
-
-  color: #1F2020
 </style>

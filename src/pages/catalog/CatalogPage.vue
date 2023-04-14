@@ -162,9 +162,11 @@ footer
   letter-spacing: 0.06em
   text-transform: uppercase
 
-  color: #1F2020
+  color: $color-typo-primary
 
 .catalog__filters-btn
+  display: block
+
   @include from(desktop)
     display: none
 
@@ -173,20 +175,24 @@ footer
     display: none
 
 .product-list
-  @include to(laptop)
+  clip-path: inset(0 0 .2rem 0)
+
+  @include to(desktop)
     display: grid
     grid-template-columns: repeat(2, minmax(0, 1fr))
     gap: 2.4rem 1.6rem
 
-  @include media(laptop)
+  @include media(laptop, desktop)
     grid-template-columns: repeat(3, minmax(0, 1fr))
 
-  @include from(desktop)
+  // @include media(desktop)
+  //   display: grid
+  //   grid-template-columns: repeat(3, minmax(0, 1fr))
+
+  @include from(widescreen)
     display: flex
     flex-wrap: wrap
     gap: 16px 24px
-
-  clip-path: inset(0 0 .2rem 0)
 
 footer
   background-color: black

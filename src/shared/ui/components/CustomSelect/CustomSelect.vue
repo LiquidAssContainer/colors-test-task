@@ -71,18 +71,9 @@ useOnClickOutside(optionsElem, () => {
       | {{ label }}
 teleport(to="body")
   v-overlay(v-if="isExpanded")
-//- label.custom-select__btn(v-else)
-//-   span.custom-select__label
-//-     | {{ selectedLabel }}
-//-   icon-triangle
-//-   select.hidden
-//-     option.custom-select__btn(v-for="{ value, label } in options" :value="value")
-//-       | {{ label }}
 </template>
 
 <style scoped lang="sass">
-// .hidden
-//   appearance: none
 .custom-select
   position: relative
 
@@ -91,6 +82,8 @@ teleport(to="body")
     align-items: center
     gap: .5rem
 
+    color: $color-typo-primary
+
   &__label
     white-space: nowrap
 
@@ -98,7 +91,7 @@ teleport(to="body")
     position: absolute
     top: 0
     right: 0
-    z-index: 10
+    z-index: 1000
 
     min-width: 28rem
 
@@ -122,6 +115,4 @@ teleport(to="body")
     line-height: 1.2
     letter-spacing: 0.06em
     text-transform: uppercase
-
-    color: $color-typo-primary
 </style>

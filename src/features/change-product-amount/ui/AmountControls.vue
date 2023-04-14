@@ -29,14 +29,12 @@ const decrement = () => store.dispatch('cart/decrement', props.id);
 .amount-controls
   display: flex
   align-items: center
-  // gap: 2rem
 
   &__amount
     width: 4.8rem
 
     font-size: 1.6rem
     text-align: center
-    color: $color-typo-primary
 
   &__amount-btn
     display: grid

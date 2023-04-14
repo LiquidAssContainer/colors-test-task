@@ -56,8 +56,6 @@ li.cart-item
     line-height: 1.12
     letter-spacing: 0.02em
 
-    color: #1F2020
-
   &__info
     flex-grow: 100
     margin-left: .8rem

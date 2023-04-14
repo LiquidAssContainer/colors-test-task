@@ -13,12 +13,11 @@ a.navlink(:href="href")
 
 <style scoped lang="sass">
 .navlink
-  font-size: 14px
-  // line-height: 100%
-
-  color: $color-typo-primary
+  font-size: 1.4rem
   letter-spacing: 0.06em
   text-transform: uppercase
+
+  color: $color-typo-primary
 
   &:hover
     color: $color-typo-link-hover
